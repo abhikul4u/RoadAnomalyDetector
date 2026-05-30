@@ -101,5 +101,32 @@
             android:exported="false"
             android:parentActivityName=".MainActivity" />
 
+        <!-- ReportsActivity: in-app list of persisted detection reports.
+             parentActivityName wires Up navigation back to MainActivity. -->
+        <activity
+            android:name=".ReportsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <!-- ReportDetailActivity: full single-report view; Up returns to the list. -->
+        <activity
+            android:name=".ReportDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".ReportsActivity" />
+
+        <!-- FileProvider used to hand exported CSV files to other apps via a
+             content:// URI (required on modern Android instead of file:// URIs).
+             The authority embeds the build's applicationId (incl. any suffix),
+             matching the authority computed at runtime when sharing. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+
     </application>
 </manifest>

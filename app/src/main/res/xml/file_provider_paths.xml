@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : file_provider_paths.xml
+   Declares which on-disk locations the app's FileProvider is allowed to expose
+   as content:// URIs. We only share exported CSV files, which live in the
+   app-specific external Downloads directory, so a single external-files-path
+   entry pointing at "Download/" is all that is needed.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<paths>
+    <!-- Maps getExternalFilesDir(DIRECTORY_DOWNLOADS) (the "Download/" subdir of
+         the app's external files root) to a shareable path named "downloads". -->
+    <external-files-path
+        name="downloads"
+        path="Download/" />
+</paths>

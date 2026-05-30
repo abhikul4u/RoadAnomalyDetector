@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : item_report.xml
+   Single row in the Reports RecyclerView. A thin colored severity pill on the
+   left, a three-line text column in the middle (class·severity / confidence·
+   bbox / location·time), and an upload-status cloud icon on the right. The pill
+   color and the cloud icon/tint are set at bind time by ReportsAdapter.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<!-- Horizontal row; height wraps content so the pill (match_parent height)
+     stretches to the row's natural height. clickable/focusable + selectable
+     background give standard list-row touch feedback. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:minHeight="64dp"
+    android:gravity="center_vertical">
+
+    <!-- Severity pill: 8dp wide, full row height. Background color assigned in
+         code per the report's severity (critical/high/medium/low). -->
+    <View
+        android:id="@+id/severityPill"
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
+        android:minHeight="64dp"
+        tools:background="@color/severity_medium" />
+
+    <!-- Middle text column takes the remaining width (weight=1). -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <!-- Top line, bold: "<class> · <Severity>". -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="?android:attr/textColorPrimary"
+            tools:text="PH · Medium" />
+
+        <!-- Second line: confidence and bbox area. -->
+        <TextView
+            android:id="@+id/tvMeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="13sp"
+            android:textColor="?android:attr/textColorSecondary"
+            tools:text="conf 0.84 · bbox 4.2%" />
+
+        <!-- Third line, gray: location (or "Indoor") and time-of-day. -->
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="12sp"
+            android:textColor="?android:attr/textColorTertiary"
+            tools:text="18.5204, 73.8567 · 14:32:08" />
+    </LinearLayout>
+
+    <!-- Upload-status indicator: cloud_done (green) if uploaded, else cloud_off
+         (gray). Resource + tint are assigned in ReportsAdapter. -->
+    <ImageView
+        android:id="@+id/ivUploaded"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/detail_uploaded"
+        tools:src="@drawable/ic_cloud_off_24" />
+
+</LinearLayout>

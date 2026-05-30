@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         locationProvider.start()
 
         // Navigate to the settings screen when the user taps the settings button.
+        // (The in-app Reports list is reached from within Settings.)
         binding.btnSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }

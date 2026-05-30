@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : activity_report_detail.xml
+   Layout for ReportDetailActivity. A MaterialToolbar app bar (with a Share
+   action added in code), a scrollable column of all DetectionReport fields
+   formatted readably plus an "Open in Maps" button, and a persistent
+   destructive "Delete" button pinned at the bottom.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ReportDetailActivity">
+
+    <!-- App bar; the toolbar becomes the support action bar so the Share menu
+         item and Up arrow work. -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/title_report_detail" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable field list takes all height above the Delete button. -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- One TextView per field; text is set at runtime via formatted
+                 strings. Attributes are inlined (no shared style) to keep all
+                 additions within the files in scope. -->
+            <TextView
+                android:id="@+id/tvClass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Class: PH" />
+
+            <TextView
+                android:id="@+id/tvSeverity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Severity: MEDIUM" />
+
+            <TextView
+                android:id="@+id/tvConfidence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Confidence: 0.8421" />
+
+            <TextView
+                android:id="@+id/tvBbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Bounding box area: 4.20%" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Location: 18.5204, 73.8567" />
+
+            <TextView
+                android:id="@+id/tvAccuracy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="GPS accuracy: 4.0 m" />
+
+            <TextView
+                android:id="@+id/tvHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Heading: 0.0°" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Time: Friday, May 30 2026 at 14:32:08 IST" />
+
+            <TextView
+                android:id="@+id/tvDevice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Device: a1b2c3d4" />
+
+            <TextView
+                android:id="@+id/tvUploaded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Uploaded: false" />
+
+            <TextView
+                android:id="@+id/tvId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="Report ID: 42" />
+
+            <!-- Opens the coordinates in an external maps app via a geo: intent.
+                 Hidden in code for indoor (no-GPS) reports. -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOpenMaps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:icon="@android:drawable/ic_dialog_map"
+                android:text="@string/action_open_in_maps" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Persistent destructive action pinned at the bottom of the screen. -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:icon="@drawable/ic_delete_24"
+        app:backgroundTint="@color/severity_critical"
+        android:textColor="@android:color/white"
+        android:text="@string/action_delete" />
+
+</LinearLayout>

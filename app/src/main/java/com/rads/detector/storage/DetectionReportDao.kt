@@ -99,4 +99,41 @@ interface DetectionReportDao {
     /** Deletes every report — used to reset/clear all stored history. */
     @Query("DELETE FROM detection_reports")
     suspend fun clearAll()
+
+    /**
+     * Fetches a single report by its primary key, e.g. to populate a detail
+     * screen. Returns null if no row with that id exists (e.g. it was deleted).
+     *
+     * @param id primary key of the report to load.
+     * @return the matching report, or null if not found.
+     */
+    @Query("SELECT * FROM detection_reports WHERE id = :id")
+    suspend fun getById(id: Long): DetectionReport?
+
+    /**
+     * Deletes a single report by its primary key — used by the detail screen's
+     * delete action. A no-op if the id does not exist.
+     *
+     * @param id primary key of the report to delete.
+     */
+    @Query("DELETE FROM detection_reports WHERE id = :id")
+    suspend fun deleteById(id: Long)
+
+    /**
+     * Aggregates report counts grouped by anomaly class, for the Reports
+     * summary header.
+     *
+     * @return one [ClassCount] per distinct className present in the table.
+     */
+    @Query("SELECT className, COUNT(*) as count FROM detection_reports GROUP BY className")
+    suspend fun classBreakdown(): List<ClassCount>
+
+    /**
+     * Aggregates report counts grouped by severity bucket, for the Reports
+     * summary header.
+     *
+     * @return one [SeverityCount] per distinct severity present in the table.
+     */
+    @Query("SELECT severity, COUNT(*) as count FROM detection_reports GROUP BY severity")
+    suspend fun severityBreakdown(): List<SeverityCount>
 }

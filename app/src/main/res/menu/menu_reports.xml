@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : menu_reports.xml
+   Toolbar (app bar) menu for ReportsActivity. Provides the two top-right
+   actions: "Export CSV" (writes all reports to a CSV file) and "Clear all"
+   (deletes every stored report after confirmation). Both are shown as icons
+   when room allows, falling back to the overflow menu otherwise.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Export every stored report to a timestamped CSV in Downloads. -->
+    <item
+        android:id="@+id/action_export_csv"
+        android:icon="@drawable/ic_download_24"
+        android:title="@string/action_export_csv"
+        app:showAsAction="ifRoom" />
+
+    <!-- Destructive: clear the entire detection_reports table (with confirm). -->
+    <item
+        android:id="@+id/action_clear_all"
+        android:icon="@drawable/ic_delete_24"
+        android:title="@string/action_clear_all"
+        app:showAsAction="ifRoom" />
+</menu>

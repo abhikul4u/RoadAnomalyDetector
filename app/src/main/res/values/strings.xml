@@ -52,4 +52,63 @@
     <!-- Settings format: count of reports currently stored. -->
     <string name="fmt_settings_queue">%1$d reports stored</string>
 
+    <!-- Reports screen -->
+    <!-- Button on the main screen that opens the Reports list. -->
+    <string name="btn_view_reports">View Reports</string>
+    <!-- Toolbar titles for the list and detail screens. -->
+    <string name="title_reports">Reports</string>
+    <string name="title_report_detail">Detection Report</string>
+    <!-- Toolbar / button action labels. -->
+    <string name="action_export_csv">Export CSV</string>
+    <string name="action_clear_all">Clear all</string>
+    <string name="action_share">Share</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_open_in_maps">Open in Maps</string>
+    <!-- Empty-state message shown when no reports have been stored yet. -->
+    <string name="empty_state_no_reports">No reports yet. Start detecting to see them here.</string>
+    <!-- Confirmation dialog copy. %d is the number of reports to be deleted. -->
+    <string name="confirm_clear_all">Delete all %d reports? This cannot be undone.</string>
+    <string name="confirm_delete_single">Delete this report?</string>
+    <!-- Post-export Snackbar: %1$d = count exported, %2$s = file name. -->
+    <string name="exported_snackbar">Exported %1$d reports to %2$s</string>
+    <!-- Toast when there is nothing to export. -->
+    <string name="toast_no_reports_to_export">No reports to export.</string>
+    <!-- Shown in place of coordinates when a report has no GPS fix. -->
+    <string name="indoor_marker">Indoor</string>
+
+    <!-- Reports summary-header format templates. -->
+    <!-- Total report count. %1$d = total. -->
+    <string name="fmt_total_reports">Total reports: %1$d</string>
+    <!-- Last detection relative time. %1$s = e.g. "2 minutes ago". -->
+    <string name="fmt_last_detection">Last detection: %1$s</string>
+    <!-- A single "LABEL: count" chunk used to build the breakdown lines. -->
+    <string name="fmt_breakdown_chunk">%1$s: %2$d</string>
+    <!-- Separator placed between breakdown chunks. -->
+    <string name="breakdown_separator">  •  </string>
+
+    <!-- Report row / detail field format templates. -->
+    <!-- Row title line: "<class> · <Severity>". -->
+    <string name="fmt_report_title">%1$s · %2$s</string>
+    <!-- Row second line: confidence and bbox area. -->
+    <string name="fmt_report_meta">conf %1$.2f · bbox %2$.1f%%</string>
+    <!-- Row third line when GPS present: "lat, lon · time". -->
+    <string name="fmt_report_location">%1$.4f, %2$.4f · %3$s</string>
+    <!-- Row third line when indoor: "Indoor · time". -->
+    <string name="fmt_report_location_indoor">%1$s · %2$s</string>
+    <!-- Detail coordinate display: "lat, lon". -->
+    <string name="fmt_coords">%1$.4f, %2$.4f</string>
+
+    <!-- Detail screen field labels (label : value). -->
+    <string name="detail_class">Class: %1$s</string>
+    <string name="detail_severity">Severity: %1$s</string>
+    <string name="detail_confidence">Confidence: %1$.4f</string>
+    <string name="detail_bbox">Bounding box area: %1$.2f%%</string>
+    <string name="detail_location">Location: %1$s</string>
+    <string name="detail_accuracy">GPS accuracy: %1$.1f m</string>
+    <string name="detail_heading">Heading: %1$.1f°</string>
+    <string name="detail_time">Time: %1$s</string>
+    <string name="detail_device">Device: %1$s</string>
+    <string name="detail_uploaded">Uploaded: %1$s</string>
+    <string name="detail_id">Report ID: %1$d</string>
+
 </resources>

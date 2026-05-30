@@ -59,6 +59,23 @@
             style="@style/SettingsValue"
             android:text="0 reports stored" />
 
+        <!-- Opens the in-app Reports history screen (list + detail + CSV export). -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnViewReports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/btn_view_reports" />
+
+        <!-- Exports all stored reports to a CSV file in Downloads, then offers
+             to share it (same action as the Reports screen toolbar). -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnExportCsv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/action_export_csv" />
+
         <!-- Destructive action: clears all stored reports from the local database. -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnClearQueue"

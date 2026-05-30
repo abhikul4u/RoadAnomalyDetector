@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : activity_reports.xml
+   Layout for ReportsActivity. A CoordinatorLayout root (so Snackbars anchor
+   correctly) containing: a MaterialToolbar app bar with the Export CSV / Clear
+   all menu, a summary card with totals + per-class/per-severity breakdowns +
+   last-detection time, and a RecyclerView of report rows. A centered empty-state
+   message is shown instead when there are no reports.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReportsActivity">
+
+    <!-- Vertical column: app bar, summary card, then the list/empty-state area. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- App bar hosting the toolbar that becomes the support action bar. -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/title_reports" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Summary header card. Hidden (along with the list) in the empty state. -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/summaryCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Total number of stored reports. -->
+                <TextView
+                    android:id="@+id/tvTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    tools:text="Total reports: 47" />
+
+                <!-- Per-class breakdown, e.g. "MH: 12  •  PH: 28  •  WLPH: 7". -->
+                <TextView
+                    android:id="@+id/tvClassBreakdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp"
+                    android:textColor="?android:attr/textColorSecondary"
+                    tools:text="MH: 12  •  PH: 28  •  WLPH: 7" />
+
+                <!-- Per-severity breakdown. -->
+                <TextView
+                    android:id="@+id/tvSeverityBreakdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:textColor="?android:attr/textColorSecondary"
+                    tools:text="Critical: 4  •  High: 9  •  Medium: 28  •  Low: 6" />
+
+                <!-- Relative time since the most recent detection. -->
+                <TextView
+                    android:id="@+id/tvLastDetection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorTertiary"
+                    tools:text="Last detection: 2 minutes ago" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- List / empty-state container fills the remaining height. -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- Scrollable list of reports, newest first. -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp"
+                tools:listitem="@layout/item_report" />
+
+            <!-- Centered empty-state message; visibility toggled in code. -->
+            <TextView
+                android:id="@+id/tvEmptyState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="32dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:text="@string/empty_state_no_reports"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </FrameLayout>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,31 @@
+# Normalize line endings: let Git decide text vs binary, store LF in the repo,
+# check out native endings on each platform. Keeps diffs clean across Windows/macOS/Linux.
+* text=auto
+
+# Scripts that must keep specific endings regardless of platform
+*.sh           text eol=lf
+gradlew        text eol=lf
+*.bat          text eol=crlf
+*.cmd          text eol=crlf
+
+# Source files — treated as text
+*.kt           text
+*.kts          text
+*.java         text
+*.xml          text
+*.txt          text
+*.pro          text
+*.properties   text
+*.md           text
+
+# Binary assets — never normalize or diff as text
+*.tflite       binary
+*.onnx         binary
+*.wav          binary
+*.png          binary
+*.jpg          binary
+*.jpeg         binary
+*.webp         binary
+*.jar          binary
+*.keystore     binary
+*.jks          binary

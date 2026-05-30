@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : activity_settings.xml
+   Layout for SettingsActivity. A scrollable, read-mostly screen organized into
+   three sections (Model, Thresholds, Storage) using the shared SettingsHeader /
+   SettingsValue styles, plus a button to clear all stored detection reports.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<!-- ScrollView wrapper so content remains accessible on short screens. -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- A ScrollView allows exactly one direct child: this vertical column. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Section: MODEL -->
+        <!-- Section header styled via the shared SettingsHeader style (themes.xml). -->
+        <TextView
+            style="@style/SettingsHeader"
+            android:text="@string/settings_section_model" />
+
+        <!-- Value line showing the loaded model's file, input size and class count.
+             tools:ignore suppresses the hardcoded-text lint (placeholder; set at runtime). -->
+        <TextView
+            android:id="@+id/tvModelInfo"
+            style="@style/SettingsValue"
+            tools:ignore="HardcodedText"
+            android:text="model.tflite • 640x640 • 3 classes" />
+
+        <!-- Section: THRESHOLDS -->
+        <TextView
+            style="@style/SettingsHeader"
+            android:text="@string/settings_section_thresholds" />
+
+        <!-- Current confidence and IoU (non-max-suppression) thresholds. -->
+        <TextView
+            android:id="@+id/tvThresholds"
+            style="@style/SettingsValue"
+            android:text="Conf: 0.35 • IoU: 0.45" />
+
+        <!-- Section: STORAGE -->
+        <TextView
+            style="@style/SettingsHeader"
+            android:text="@string/settings_section_storage" />
+
+        <!-- How many detection reports are currently persisted locally. -->
+        <TextView
+            android:id="@+id/tvQueueCount"
+            style="@style/SettingsValue"
+            android:text="0 reports stored" />
+
+        <!-- Destructive action: clears all stored reports from the local database. -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClearQueue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/settings_clear_queue" />
+
+    </LinearLayout>
+</ScrollView>

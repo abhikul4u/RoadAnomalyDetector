@@ -1,0 +1,47 @@
+# Gradle
+.gradle/
+build/
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+captures/
+out/
+.navigation/
+*.hprof
+
+# Build artifacts
+gen/
+release/
+bin/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Java / Kotlin
+*.class
+
+# Native
+obj/
+.cxx/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keystore (NEVER commit signing keys)
+*.jks
+*.keystore
+keystore.properties
+
+# Misc
+*.bak
+*.tmp
+
+# Legacy/oversized model (exceeds GitHub 100 MB file limit)
+app/src/main/assets/model_old.tflite

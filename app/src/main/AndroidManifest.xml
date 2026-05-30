@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : AndroidManifest.xml
+   The app's manifest: it declares the permissions and hardware features the app
+   needs, the application-level configuration (icon, theme, custom Application
+   class), and every Activity the system can launch. The OS reads this file to
+   know how to install, launch, and grant capabilities to the app.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Camera -->
+    <!-- CAMERA permission: required at runtime to open the camera and capture the
+         live preview frames that are fed to the anomaly detection model. -->
+    <!-- uses-feature camera (required): the app is useless without a camera, so
+         devices without one are filtered out (e.g. on the Play Store). -->
+    <!-- autofocus (not required): nice-to-have; we don't exclude fixed-focus devices. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+    <!-- Location for GPS tagging -->
+    <!-- FINE location: precise GPS used to stamp each detected anomaly with exact
+         coordinates. COARSE is declared as a fallback for when the user grants
+         only approximate location (required pairing on Android 12+). -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Notifications (Android 13+) -->
+    <!-- Runtime-granted on API 33+; needed to post high-priority alerts to the user. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Vibration for haptic alerts -->
+    <!-- Lets the app buzz the device when a severe anomaly is detected. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Network (for future backend sync) -->
+    <!-- INTERNET + network-state: reserved for the planned Phase 2 feature that
+         uploads queued detection reports to a backend server. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Keep screen on while detecting -->
+    <!-- WAKE_LOCK keeps the CPU/screen awake so continuous detection isn't
+         interrupted while the device would otherwise sleep. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- The <application> element configures app-wide settings and lists components.
+         - android:name        -> custom Application subclass run on startup.
+         - allowBackup=false   -> opt out of auto cloud backup (detection data is local/sensitive).
+         - icon/label          -> launcher icon and app name.
+         - supportsRtl         -> mirror layouts for right-to-left locales.
+         - theme               -> default app theme (defined in themes.xml).
+         - hardwareAccelerated -> enable GPU rendering for smooth camera/overlay drawing.
+         - tools:targetApi     -> tooling hint only; does not affect runtime behavior. -->
+    <application
+        android:name=".RadsApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Rads"
+        android:hardwareAccelerated="true"
+        tools:targetApi="34">
+
+        <!-- PermissionActivity: the LAUNCHER entry point. It is shown first so the
+             app can request the runtime permissions (camera/location/etc.) before
+             starting detection. exported=true is required for the launcher activity. -->
+        <activity
+            android:name=".PermissionActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <!-- intent-filter marks this activity as the app's main launcher icon. -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- MainActivity: the live detection screen.
+             - exported=false      -> only launchable from within this app.
+             - configChanges       -> handle these changes ourselves instead of
+                                       recreating the Activity (avoids tearing down
+                                       the camera/model on rotation or keyboard toggle).
+             - keepScreenOn        -> prevent the screen from dimming while detecting. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:keepScreenOn="true" />
+
+        <!-- SettingsActivity: shows model info, thresholds, and storage controls.
+             parentActivityName enables the Up navigation arrow back to MainActivity. -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+    </application>
+</manifest>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : strings.xml
+   Centralized user-facing text for the app, grouped by screen. Keeping strings
+   here (instead of hardcoded in code/layouts) enables localization and a single
+   place to edit copy. Entries prefixed "fmt_" are format templates whose %1$.. /
+   %2$.. placeholders are filled in at runtime via getString(...).
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<resources>
+    <!-- App display name (launcher label and titles). -->
+    <string name="app_name">RADS Detector</string>
+
+    <!-- Permission Activity -->
+    <!-- Shown on launch explaining why the app needs each permission. -->
+    <string name="permission_intro_message">This app needs Camera and Location access to detect road anomalies and tag them with GPS coordinates. Notifications are used for high-priority alerts.</string>
+    <!-- Label of the button that triggers the permission requests. -->
+    <string name="permission_grant">Grant permissions</string>
+    <!-- Shown if the user denies; directs them to enable permissions manually. -->
+    <string name="permission_denied_message">Permissions are required for the app to function. Please enable them in Settings.</string>
+    <!-- Label of the button that opens the OS app-settings screen. -->
+    <string name="permission_open_settings">Open Settings</string>
+
+    <!-- Main Activity -->
+    <!-- Error shown when the TFLite model asset is missing or fails to load. -->
+    <string name="error_model_load">Failed to load model. Make sure model.tflite is in the assets folder.</string>
+    <!-- Content description / label for the settings button. -->
+    <string name="settings">Settings</string>
+    <!-- HUD format: per-frame inference time in milliseconds. -->
+    <string name="fmt_perf">Inference: %1$d ms</string>
+    <!-- HUD format: active inference delegate name (e.g. GPU/CPU). -->
+    <string name="fmt_delegate">Delegate: %1$s</string>
+    <!-- HUD format: current latitude/longitude (4 decimal places each). -->
+    <string name="fmt_gps">GPS: %1$.4f°, %2$.4f°</string>
+    <!-- HUD format: number of detection reports queued locally. -->
+    <string name="fmt_queue">Reports queued: %1$d</string>
+
+    <!-- Settings Activity -->
+    <!-- Section headers on the settings screen. -->
+    <string name="settings_section_model">Model</string>
+    <string name="settings_section_thresholds">Thresholds</string>
+    <string name="settings_section_storage">Storage</string>
+    <!-- Label of the button that deletes all stored reports. -->
+    <string name="settings_clear_queue">Clear all reports</string>
+    <!-- Settings format: model file name, input W×H, and class count. -->
+    <string name="fmt_model_info">%1$s • %2$d×%3$d • %4$d classes</string>
+    <!-- Settings format: confidence and IoU thresholds (2 decimals each). -->
+    <string name="fmt_thresholds">Confidence: %1$.2f • IoU: %2$.2f</string>
+    <!-- Settings format: count of reports currently stored. -->
+    <string name="fmt_settings_queue">%1$d reports stored</string>
+
+</resources>

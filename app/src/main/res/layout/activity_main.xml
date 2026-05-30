@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : activity_main.xml
+   Layout for the live detection screen (MainActivity). A full-screen camera
+   preview sits at the back with a custom detection overlay drawn on top, framed
+   by translucent top/bottom HUD bars showing performance, GPS, and queue info.
+   A floating settings button and a full-screen loading overlay complete the UI.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<!-- ConstraintLayout: a flat, flexible container that positions children relative
+     to each other and to the parent edges (efficient for this layered HUD). -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".MainActivity">
+
+    <!-- Camera preview fills the screen -->
+    <!-- PreviewView (CameraX) renders the live camera feed. 0dp width/height means
+         "match constraints", so it stretches to all four parent edges. -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Detection overlay drawn on top of camera -->
+    <!-- Custom view that paints bounding boxes/labels for detected anomalies. It is
+         pinned to exactly the same bounds as the PreviewView so boxes line up with
+         the image. Placed AFTER the preview so it draws on top of it. -->
+    <com.rads.detector.overlay.DetectionOverlayView
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/previewView"
+        app:layout_constraintBottom_toBottomOf="@id/previewView"
+        app:layout_constraintStart_toStartOf="@id/previewView"
+        app:layout_constraintEnd_toEndOf="@id/previewView" />
+
+    <!-- Top status bar -->
+    <!-- Translucent HUD strip pinned to the top. Horizontal layout holds two
+         readouts side by side; the large top padding clears the system status bar
+         and fitsSystemWindows insets it below the notch/status bar. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="48dp"
+        android:paddingBottom="12dp"
+        android:background="#80000000"
+        android:fitsSystemWindows="true"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Left readout: per-frame inference time (performance indicator). -->
+        <TextView
+            android:id="@+id/tvFps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            tools:text="Inference: 48 ms" />
+
+        <!-- Right readout: which TFLite delegate is active (e.g. GPU vs CPU). -->
+        <TextView
+            android:id="@+id/tvDelegate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            tools:text="GPU" />
+    </LinearLayout>
+
+    <!-- Bottom status bar -->
+    <!-- Translucent HUD pinned to the bottom; vertical stack of status lines
+         (location, queued report count, and an error message line). -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:background="#80000000"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Current GPS coordinates used to tag detections. -->
+        <TextView
+            android:id="@+id/tvGps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            tools:text="GPS: 18.5204°N, 73.8567°E" />
+
+        <!-- Number of detection reports waiting in the local queue. -->
+        <TextView
+            android:id="@+id/tvQueueCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            tools:text="Reports queued: 0" />
+
+        <!-- Error/status line. Hidden by default (visibility=gone) and shown in red
+             only when something goes wrong (e.g. model failed to load). -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FF6B6B"
+            android:textSize="13sp"
+            android:visibility="gone"
+            tools:text="Error message"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <!-- Settings button (top-right, floating, below the status bar) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSettings"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/settings"
+        app:icon="@android:drawable/ic_menu_preferences"
+        app:iconTint="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Loading overlay shown during model initialization -->
+    <!-- Near-opaque full-screen blocker centered over everything. It hides the UI
+         and shows a spinner + message while the TFLite model loads (which can be
+         slow on first launch), then is dismissed once detection is ready. -->
+    <LinearLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#CC000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ProgressBar
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:indeterminateTint="@color/severity_high" />
+
+        <TextView
+            android:id="@+id/tvLoadingMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Loading model — this can take up to 60 seconds on first launch"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

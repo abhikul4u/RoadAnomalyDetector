@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : themes.xml
+   Defines the app's visual theme and shared widget styles. Theme.Rads is the
+   Material3 base theme (no action bar, edge-to-edge friendly) referenced from the
+   manifest. SettingsHeader/SettingsValue are reusable text styles applied to the
+   settings screen so its rows stay visually consistent.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<resources>
+    <!-- Main application theme. Extends a Material 3 day/night theme with no action
+         bar so the camera screen can render edge-to-edge under the system bars. -->
+    <style name="Theme.Rads" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/severity_high</item>            <!-- Brand accent (orange) for primary widgets. -->
+        <item name="android:statusBarColor">@android:color/transparent</item> <!-- Transparent so the camera shows through the top. -->
+        <item name="android:navigationBarColor">#80000000</item>          <!-- 50% black nav bar for contrast over the preview. -->
+        <item name="android:windowLightStatusBar">false</item>            <!-- Use light (white) status-bar icons over the dark feed. -->
+        <item name="android:windowTranslucentStatus">false</item>         <!-- Opaque (non-translucent) status region; we manage insets ourselves. -->
+    </style>
+
+    <!-- Reusable style for settings SECTION HEADERS (small, bold, all-caps, accent). -->
+    <style name="SettingsHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">24dp</item>     <!-- Space above to separate sections. -->
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">?attr/colorPrimary</item> <!-- Resolves to the theme's accent color. -->
+    </style>
+
+    <!-- Reusable style for settings VALUE lines (the larger text under each header). -->
+    <style name="SettingsValue">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>

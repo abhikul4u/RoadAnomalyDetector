@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : activity_permission.xml
+   Layout for the onboarding PermissionActivity (the app's launch screen). It
+   centers a simple column: the app title, an explanation of why permissions are
+   needed, and a button the user taps to trigger the runtime permission requests.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<!-- Vertical LinearLayout with everything centered, padded away from the edges. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp">
+
+    <!-- App title shown large and bold at the top of the screen. -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Explanatory message telling the user which permissions are needed and why.
+         Has an id so the Activity can swap in a "denied" message if needed. -->
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/permission_intro_message"
+        android:textSize="16sp"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Action button: tapping it launches the system permission prompts. -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGrant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/permission_grant" />
+</LinearLayout>

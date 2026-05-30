@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ============================================================================
+   Project : Road Anomaly Detection System (RADS)
+   File    : colors.xml
+   Central color palette for the app. Defines the severity color scale used to
+   draw/label detected anomalies (from critical red down to low green) and the
+   semi-transparent HUD background plus HUD text colors used by the overlays.
+   Author  : Rutuja Kulkarni
+  ============================================================================
+-->
+<resources>
+    <!-- Severity scale: maps an anomaly's seriousness to a color, hottest to coolest. -->
+    <color name="severity_critical">#DC2626</color> <!-- Red    — most severe road damage. -->
+    <color name="severity_high">#EA580C</color>     <!-- Orange — also reused as the app's primary accent. -->
+    <color name="severity_medium">#CA8A04</color>   <!-- Amber  — moderate severity. -->
+    <color name="severity_low">#16A34A</color>      <!-- Green  — minor/low severity. -->
+
+    <!-- HUD (heads-up display) colors for the translucent overlay bars. -->
+    <color name="hud_background">#80000000</color>  <!-- 50% black — dims camera behind text for legibility. -->
+    <color name="hud_text">#FFFFFFFF</color>        <!-- Opaque white — HUD readout text. -->
+</resources>
